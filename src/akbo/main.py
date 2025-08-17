@@ -1,6 +1,8 @@
 from fastapi import FastAPI
-app = FastAPI(title="Akbo API")
 
-@app.get("/health")
+app = FastAPI(title="Akbo API", version="0.1.0")
+
+
+@app.get("/healthz")
 def health():
     return {"status": "ok"}

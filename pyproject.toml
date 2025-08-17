@@ -3,7 +3,7 @@ name = "akbo"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.13"
 dependencies = [
     "alembic>=1.16.4",
     "fastapi>=0.116.1",
@@ -32,3 +32,59 @@ where = ["src"]
 
 [tool.uv]
 package = true
+
+[tool.ruff]
+target-version = "py313"
+line-length = 100
+src = ["src"]
+extend-exclude = ["alembic", "migrations", "dist", "build", ".venv"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "lf"
+docstring-code-format = true
+
+[tool.ruff.lint]
+select = [
+  "E","F",
+  "B",
+  "I",
+  "UP",
+  "N",
+  "SIM",
+  "C4",
+  "RET",
+  "TRY",
+  "PT",
+  "DTZ",
+  "T20","T10",
+  "S",
+  "C90",
+  "PL",
+  "ERA"
+]
+ignore = []
+
+[tool.ruff.lint.mccabe]
+max-complexity = 12  # 기본 10이 버겁다면 12~15로 조정
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101","D","ANN","T20","T10"]
+"alembic/**" = ["ALL"]
+
+
+[tool.ruff.lint.isort]
+known-first-party = ["akbo"]
+combine-as-imports = true
+force-sort-within-sections = true
+from-first = false
+required-imports = ["from __future__ import annotations"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.mypy]
+python_version = "3.13"
+packages = ["akbo"]
+strict = false
