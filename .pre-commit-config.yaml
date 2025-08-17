@@ -1,0 +1,34 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    # 최신 릴리스 태그(예: v0.12.9). 필요 시 최신 태그로 교체.
+    rev: v0.12.9
+    hooks:
+      # 1) Lint (자동 수정 원하면 --fix 추가)
+      - id: ruff-check
+        args: [--fix]
+        # Jupyter를 빼고 싶다면 다음 두 줄을 사용하세요(옵션):
+        # types_or: [python, pyi]
+
+        # 프로젝트 제외 경로(선택): TOML의 extend-exclude와 유사하게 맞춤
+        exclude: ^(.*/)?(alembic|migrations|dist|build|\.venv)/
+
+      # 2) Formatter
+      - id: ruff-format
+        # 동일한 exclude를 맞춰 주면 깔끔합니다.
+        exclude: ^(.*/)?(alembic|migrations|dist|build|\.venv)/
+        # Jupyter 제외(옵션):
+        # types_or: [python, pyi]
+  # mypy: 로컬 훅 (프로젝트 venv 사용)
+  - repo: local
+    hooks:
+      - id: mypy
+        name: mypy (uv)
+        language: system
+        entry: uv
+        args: ["run", "mypy", "--config-file=pyproject.toml"]
+        pass_filenames: false
+        types: [python]
+        # 파이썬 파일이 아닌 커밋에도 무조건 검사하고 싶다면 ↓ 두 줄 추가
+        # always_run: true
+        # files: ""   # (빈 정규식)
+        exclude: ^(.*/)?(alembic|migrations|dist|build|\.venv)/

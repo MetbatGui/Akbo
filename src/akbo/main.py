@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from fastapi import FastAPI
 
 app = FastAPI(title="Akbo API", version="0.1.0")
