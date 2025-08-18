@@ -1,23 +1,23 @@
 repos:
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    # 최신 릴리스 태그(예: v0.12.9). 필요 시 최신 태그로 교체.
-    rev: v0.12.9
+  - repo: local
     hooks:
-      # 1) Lint (자동 수정 원하면 --fix 추가)
       - id: ruff-check
-        args: [--fix]
-        # Jupyter를 빼고 싶다면 다음 두 줄을 사용하세요(옵션):
-        # types_or: [python, pyi]
-
-        # 프로젝트 제외 경로(선택): TOML의 extend-exclude와 유사하게 맞춤
+        name: ruff check (uv)
+        language: system
+        entry: uv
+        args: ["run", "ruff", "check", "--fix"]
+        pass_filenames: false
+        types: [python]
         exclude: ^(.*/)?(alembic|migrations|dist|build|\.venv)/
 
-      # 2) Formatter
       - id: ruff-format
-        # 동일한 exclude를 맞춰 주면 깔끔합니다.
+        name: ruff format (uv)
+        language: system
+        entry: uv
+        args: ["run", "ruff", "format"]
+        pass_filenames: false
+        types: [python]
         exclude: ^(.*/)?(alembic|migrations|dist|build|\.venv)/
-        # Jupyter 제외(옵션):
-        # types_or: [python, pyi]
   # mypy: 로컬 훅 (프로젝트 venv 사용)
   - repo: local
     hooks:

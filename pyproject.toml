@@ -22,6 +22,7 @@ dev = [
     "pytest>=8.4.1",
     "pytest-asyncio>=1.1.0",
     "pytest-cov>=6.2.1",
+    "ruff>=0.12.9",
 ]
 
 [build-system]
@@ -71,7 +72,7 @@ ignore = []
 max-complexity = 12  # 기본 10이 버겁다면 12~15로 조정
 
 [tool.ruff.lint.per-file-ignores]
-"tests/**" = ["DTZ", "S101", "D", "ANN", "T20", "T10"]
+"tests/**" = ["DTZ", "S101", "D", "ANN", "T20", "T10", "TRY"]
 "alembic/**" = ["ALL"]
 
 
